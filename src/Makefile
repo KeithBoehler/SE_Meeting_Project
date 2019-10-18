@@ -1,0 +1,15 @@
+# Makefile
+#gnu++ -o ./../bin/master.out master.cpp \
+#-I/usr/local/Cellar/mariadb/10.4.6_1/include/mysql/server \
+#-L/usr/local/opt/mysql-client/lib \
+#-I/usr/local/opt/mysql-client/include -lmysqlclient
+### ^^^ Thing i am doing ###
+
+# Project Path is the root for this project. In my machine.
+PROJECT_PATH=/Users/keithnator3000/OneDrive\ -\ The\ University\ of\ Texas-Rio\ Grande\ Valley/Classes/STEM/Computer_Science/Software\ Engineering\ I\ -\ CSCI\ 3340/SE_Fall19/project/SE_Meeting_Project
+CXX=/usr/local/Cellar/gcc/9.2.0/bin/g++-9
+LDFLAGS=-L/usr/local/opt/mysql-client/lib
+CPPFLAGS=-I/usr/local/opt/mysql-client/include -I/usr/local/opt/mysql-client/include -lmysqlclient
+
+master:
+	$(CXX) -o ./..$($PROJECT_PATH)/bin/master.out master.cpp $(LDFLAGS) $(CPPFLAGS)
