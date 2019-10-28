@@ -9,7 +9,9 @@
 PROJECT_PATH=/Users/keithnator3000/OneDrive\ -\ The\ University\ of\ Texas-Rio\ Grande\ Valley/Classes/STEM/Computer_Science/Software\ Engineering\ I\ -\ CSCI\ 3340/SE_Fall19/project/SE_Meeting_Project
 CXX=/usr/local/Cellar/gcc/9.2.0/bin/g++-9
 LDFLAGS=-L/usr/local/opt/mysql-client/lib
-CPPFLAGS=-I/usr/local/opt/mysql-client/include -I/usr/local/opt/mysql-client/include -lmysqlclient
+#CPPFLAGS=-I/usr/local/opt/mysql-client/include -I/usr/local/opt/mysql-client/include -lmysqlclient
+CPPFLAGS=-I/usr/local/opt/mysql-client/include -I/usr/local/opt/mysql-client/include -lsqlite3
+
 
 master:
 	$(CXX) -o ./..$($PROJECT_PATH)/bin/master.out master.cpp $(LDFLAGS) $(CPPFLAGS)
