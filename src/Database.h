@@ -7,7 +7,7 @@ class Database{
 
   public:
     Database(); // defult constructor
-//    Database(std::string);
+    Database(std::string);
     void closeDB();
 
   private:

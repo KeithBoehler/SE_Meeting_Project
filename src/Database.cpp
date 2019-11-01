@@ -14,8 +14,18 @@ Database::Database(void){
   }
   else
     std::cout << "Databse is now open. " << std::endl;
-  //sqlite3_close(DB);
-  //closeDB();
+} // end defult const
+
+Database::Database(std::string dbLocation){
+  std::cout << "Making DB" << std::endl;
+  DB = NULL;
+  int exit = 0;
+  exit = sqlite3_open(dbLocation.c_str(), &DB); // wont take normal string
+  if (exit){
+    std::cerr << "Could not Open example.db " << sqlite3_errmsg(DB) << std::endl;
+  }
+  else
+    std::cout << "Databse is now open. " << std::endl;
 } // end defult const
 
 void Database::closeDB(){
