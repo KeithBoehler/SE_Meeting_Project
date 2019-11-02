@@ -4,6 +4,8 @@
 #include <string>
 #include "Database.h"
 
+using namespace std;
+
 Database::Database(void){
   std::cout << "Making DB" << std::endl;
   DB = NULL;
@@ -16,9 +18,10 @@ Database::Database(void){
     std::cout << "Databse is now open. " << std::endl;
 } // end defult const
 
-Database::Database(std::string dbLocation){
+Database::Database(std::string s){
   std::cout << "Making DB" << std::endl;
   DB = NULL;
+  dbLocation = s;
   int exit = 0;
   exit = sqlite3_open(dbLocation.c_str(), &DB); // wont take normal string
   if (exit){
@@ -26,26 +29,61 @@ Database::Database(std::string dbLocation){
   }
   else
     std::cout << "Databse is now open. " << std::endl;
+
+  tablesInit(DB);
 } // end defult const
+
+/*******************************************
+*           Public Methods
+*
+*********************************************
+*/
 
 void Database::closeDB(){
   sqlite3_close(DB);
 } // fun to close db end
 
+void Database::insertData(){
+  std::string schedualQuery = "SELECT * FROM SCHEDUAL";
+  std::cout << "Table before dat... " << std::cout;
+  sqlite3_exec(DB, schedualQuery.c_str(), callback, NULL, NULL);
+}// end insert method
 
-/*
-bool Database::dbExist(string dbName, sqlite3* DB){
-  int exit = 0;
-  exit = sqlite3_open(dbName, &DB);
-  char* messaggeError;
-  exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
-
-  if (exit != SQLITE_OK) {
-      std::cerr << "Error Create Table" << std::endl;
-      sqlite3_free(messaggeError);
-      return FALSE;
-  }
-  else
-      return TRUE; //std::cout << "Table created Successfully" << std::endl;
-} // end check if db exists
+/*******************************************
+*           Private Methods
+*
+*********************************************
 */
+void Database::tablesInit(sqlite3* sqlptr){
+  // Strings for date storage table
+  std::string schedualTable = "CREATE TABLE SCHEDUAL(";
+  std::string schID = "AccountID INT PRIMARY KEY NOT NULL, ";
+  std::string schDateStart = "START_DATE VARCHAR(13) NOT NULL, ";
+  std::string schDateEND = "END_DATE VARCHAR(13) NOT NULL); ";
+  schedualTable.append(schID);
+  schedualTable.append(schDateStart);
+  schedualTable.append(schDateEND);
+  int exit = 0;
+  char* messaggeError;
+  exit = sqlite3_exec(sqlptr, schedualTable.c_str(), NULL, 0, &messaggeError);
+  if (exit != SQLITE_OK){
+    std::cerr << "Error making table Schedual" << std::endl;
+    sqlite3_free(messaggeError);
+  }// end if
+  else
+    std::cout << "Table Schedual has been made. " << std::endl;
+
+  // strings for
+
+}// end table inits
+
+int Database::callback(void* data, int argc, char** argv, char** azColName){
+    int i;
+    fprintf(stderr, "%s: ", (const char*)data);
+    for (i = 0; i < argc; i++) {
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    }
+
+    printf("\n");
+    return 0;
+}
