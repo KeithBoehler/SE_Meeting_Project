@@ -4,8 +4,6 @@
 #include <string>
 #include "Database.h"
 
-using namespace std;
-
 Database::Database(void){
   std::cout << "Making DB" << std::endl;
   DB = NULL;
@@ -45,8 +43,21 @@ void Database::closeDB(){
 
 void Database::insertData(){
   std::string schedualQuery = "SELECT * FROM SCHEDUAL";
-  std::cout << "Table before dat... " << std::cout;
+  std::cout << "Table before dat... " << std::endl;
   sqlite3_exec(DB, schedualQuery.c_str(), callback, NULL, NULL);
+  std::cout << "After putting in some test data. " << std::endl;
+  std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
+  int exit = 0;
+  char* messaggeError;
+  exit = sqlite3_exec(DB, test.c_str(), NULL, 0, &messaggeError);
+  if(exit != SQLITE_OK){
+    std::cerr << "Error with insert. " << std::endl;
+    sqlite3_free(messaggeError);
+  }// end if
+  else
+    std::cout << "Record has been inserted. " << std::endl;
+  sqlite3_exec(DB, schedualQuery.c_str(), callback, NULL, NULL);
+
 }// end insert method
 
 /*******************************************

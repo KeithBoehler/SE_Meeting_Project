@@ -21,5 +21,5 @@ class Database{
     void tablesInit(sqlite3* sqlptr);
 
     // from the sql tutorial
-    int callback(void* data, int argc, char** argv, char** azColName);
+    static int callback(void* data, int argc, char** argv, char** azColName);
 }; // end class DB
