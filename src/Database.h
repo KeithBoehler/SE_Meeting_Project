@@ -9,7 +9,7 @@ class Database{
     Database(); // defult constructor
     Database(std::string);
     void closeDB();
-    void insertData();
+    void insertSchedualData();
 
   private:
     // Variables

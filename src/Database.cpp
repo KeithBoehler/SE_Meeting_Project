@@ -41,12 +41,32 @@ void Database::closeDB(){
   sqlite3_close(DB);
 } // fun to close db end
 
-void Database::insertData(){
-  std::string schedualQuery = "SELECT * FROM SCHEDUAL";
-  std::cout << "Table before dat... " << std::endl;
-  sqlite3_exec(DB, schedualQuery.c_str(), callback, NULL, NULL);
-  std::cout << "After putting in some test data. " << std::endl;
-  std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
+void Database::insertSchedualData(){
+  std::string schedualQuery = "SELECT * FROM SCHEDUAL"; // What we are running in sql
+  //std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
+  std::string id = "empty";
+  std::string date1 = "empty";
+  std::string date2 = "empty";
+  std::string tmp = "empty";
+  std::cout << "Enter ID: ";
+  std::cin >> id;
+  std::cout << "\n Enter year: ";
+  std::cin >> date1;
+  std::cout << "\n Enter Month: ";
+  std::cin >> tmp;
+  date1.append(tmp);
+  std::cout << "\n Enter Day: ";
+  std::cin >> tmp;
+  date1.append(tmp);
+  date1.append("T");
+  std::cout << "\n Enter Hour: ";
+  std::cin >> tmp;
+  date1.append(tmp);
+  std::cout << "\n Enter Minute: ";
+  std::cin >> tmp;
+  date1.append(tmp);
+  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + date1 + ", '20191102T0301');";
+
   int exit = 0;
   char* messaggeError;
   exit = sqlite3_exec(DB, test.c_str(), NULL, 0, &messaggeError);
