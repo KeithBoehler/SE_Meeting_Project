@@ -41,31 +41,26 @@ void Database::closeDB(){
   sqlite3_close(DB);
 } // fun to close db end
 
+/*
+*  Intent: Gather User schedual Information and insert into the database.
+*
+*  Precondition: None.
+*
+*  Postcondition: User info will now be a record in sqlite. 
+*
+*/
+
 void Database::insertSchedualData(){
   std::string schedualQuery = "SELECT * FROM SCHEDUAL"; // What we are running in sql
-  //std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
   std::string id = "empty";
-  std::string date1 = "empty";
-  std::string date2 = "empty";
-  std::string tmp = "empty";
+  //std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
   std::cout << "Enter ID: ";
   std::cin >> id;
-  std::cout << "\n Enter year: ";
-  std::cin >> date1;
-  std::cout << "\n Enter Month: ";
-  std::cin >> tmp;
-  date1.append(tmp);
-  std::cout << "\n Enter Day: ";
-  std::cin >> tmp;
-  date1.append(tmp);
-  date1.append("T");
-  std::cout << "\n Enter Hour: ";
-  std::cin >> tmp;
-  date1.append(tmp);
-  std::cout << "\n Enter Minute: ";
-  std::cin >> tmp;
-  date1.append(tmp);
-  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + date1 + ", '20191102T0301');";
+  std::cout << "Enter Start: " << std::endl;
+  std::string date1 = insertSchedualDataAux();
+  std::cout << "Enter End: " << std::endl;
+  std::string date2 = insertSchedualDataAux();
+  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + date1 + ", " + date2 + ");";
 
   int exit = 0;
   char* messaggeError;
@@ -84,6 +79,15 @@ void Database::insertSchedualData(){
 *           Private Methods
 *
 *********************************************
+*/
+/*
+*   Intent: In the event that the needed tables do not exist this function
+*           Has the needed strings to create them with the constructor.
+*
+*   Precondition: None.
+*
+*   Postcondition: Approprate tables are created as per the DB requirements.
+*                 See the docs for more details.
 */
 void Database::tablesInit(sqlite3* sqlptr){
   // Strings for date storage table
@@ -105,8 +109,37 @@ void Database::tablesInit(sqlite3* sqlptr){
     std::cout << "Table Schedual has been made. " << std::endl;
 
   // strings for
-
 }// end table inits
+/*
+*   Intent: The this is to streamline the insertion of data from the
+* insert schedual data. There is a duplicity in keyboard inputs of dates
+* Helps keep that function easy to read.
+*
+*   Precondition: None.
+*
+*   Postcondition: Return a string with YYYYMMDDTHHMM format.
+*/
+std::string Database::insertSchedualDataAux(){
+  std::string date = "empty";
+  std::string tmp = "empty";
+  std::cout << "\n Enter year: ";
+  std::cin >> date;
+  std::cout << "\n Enter Month: ";
+  std::cin >> tmp;
+  date.append(tmp);
+  std::cout << "\n Enter Day: ";
+  std::cin >> tmp;
+  date.append(tmp);
+  date.append("T");
+  std::cout << "\n Enter Hour: ";
+  std::cin >> tmp;
+  date.append(tmp);
+  std::cout << "\n Enter Minute: ";
+  std::cin >> tmp;
+  date.append(tmp);
+  return date;
+} // end of std::string insertSchedualDataAux();
+
 
 int Database::callback(void* data, int argc, char** argv, char** azColName){
     int i;
