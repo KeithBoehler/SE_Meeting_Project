@@ -75,6 +75,27 @@ void Database::insertSchedualData(){
 
 }// end insert method
 
+void Database::getSchedualData(int id){
+  std::cout << "Get TEST" << std::endl;
+  std::string sql = "SELECT * FROM SCHEDUAL;";
+  if (exit) {
+    std::cerr << "Error open DB " << sqlite3_errmsg(DB) << std::endl;
+    //return 1;
+  }
+  else
+    std::cout << "Opened Database Successfully!" << std::endl;
+
+  int rc = sqlite3_exec(DB, sql.c_str(), callback, (void*)sql.c_str(), NULL);
+
+  if (rc != SQLITE_OK)
+    std::cerr << "Error SELECT" << std::endl;
+  else {
+    std::cout << "Operation OK!" << std::endl;
+    }
+
+}// end get data schedual
+
+
 /*******************************************
 *           Private Methods
 *

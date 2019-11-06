@@ -22,6 +22,7 @@ int main(){
   std::string path = "/Users/keithnator3000/OneDrive - The University of Texas-Rio Grande Valley/Classes/STEM/Computer_Science/Software Engineering I - CSCI 3340/SE_Fall19/project/SE_Meeting_Project/sqlite/where2meet.db";
   Database DBObj(path);
 	DBObj.insertSchedualData();
+  DBObj.getSchedualData(1);
 	DBObj.closeDB();
   std::cout << "Bye!" << std::endl;
   return 0;
