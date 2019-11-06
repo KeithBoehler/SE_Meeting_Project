@@ -46,7 +46,7 @@ void Database::closeDB(){
 *
 *  Precondition: None.
 *
-*  Postcondition: User info will now be a record in sqlite. 
+*  Postcondition: User info will now be a record in sqlite.
 *
 */
 
@@ -60,8 +60,8 @@ void Database::insertSchedualData(){
   std::string date1 = insertSchedualDataAux();
   std::cout << "Enter End: " << std::endl;
   std::string date2 = insertSchedualDataAux();
-  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + date1 + ", " + date2 + ");";
-
+  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + "'" + date1 + "'" + ", " + "'" + date2 + "'" + ");";
+  std::cout << "Insett sql is: " << test << std::endl;
   int exit = 0;
   char* messaggeError;
   exit = sqlite3_exec(DB, test.c_str(), NULL, 0, &messaggeError);
@@ -93,11 +93,12 @@ void Database::tablesInit(sqlite3* sqlptr){
   // Strings for date storage table
   std::string schedualTable = "CREATE TABLE SCHEDUAL(";
   std::string schID = "AccountID INT PRIMARY KEY NOT NULL, ";
-  std::string schDateStart = "START_DATE VARCHAR(13) NOT NULL, ";
-  std::string schDateEND = "END_DATE VARCHAR(13) NOT NULL); ";
+  std::string schDateStart = "START_DATE VARCHAR(14) NOT NULL, "; // YYYYMMDDTHHMM = 13
+  std::string schDateEND = "END_DATE VARCHAR(14) NOT NULL); ";
   schedualTable.append(schID);
   schedualTable.append(schDateStart);
   schedualTable.append(schDateEND);
+  //std::cout << "SQL str is: " << schedualTable << std::endl;
   int exit = 0;
   char* messaggeError;
   exit = sqlite3_exec(sqlptr, schedualTable.c_str(), NULL, 0, &messaggeError);
