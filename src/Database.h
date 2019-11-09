@@ -10,6 +10,8 @@ class Database{
     Database(std::string);
     void closeDB();
     void insertSchedualData();
+    void insertAccountData();
+    void getSchedualData(int);
 
   private:
     // Variables

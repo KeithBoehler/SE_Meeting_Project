@@ -75,6 +75,18 @@ void Database::insertSchedualData(){
 
 }// end insert method
 
+void Databse::insertAccountData(){
+  std::string email;
+  std::cout << "Enter email: ";
+  std::cin >> ins;
+  std::string passwd;
+  std::cout << "\n Enter Password: "
+  std::cin >> passwd;
+  std::cout << std::endl;
+}// end insert Account Data
+
+
+
 void Database::getSchedualData(int id){
   std::cout << "Get TEST" << std::endl;
   std::string sql = "SELECT * FROM SCHEDUAL;";
@@ -112,7 +124,7 @@ void Database::getSchedualData(int id){
 */
 void Database::tablesInit(sqlite3* sqlptr){
   // Strings for date storage table
-  std::string schedualTable = "CREATE TABLE SCHEDUAL(";
+  std::string schedualTable = "CREATE TABLE IF NOT EXISTS SCHEDUAL(";
   std::string schID = "AccountID INT PRIMARY KEY NOT NULL, ";
   std::string schDateStart = "START_DATE VARCHAR(14) NOT NULL, "; // YYYYMMDDTHHMM = 13
   std::string schDateEND = "END_DATE VARCHAR(14) NOT NULL); ";
@@ -130,7 +142,15 @@ void Database::tablesInit(sqlite3* sqlptr){
   else
     std::cout << "Table Schedual has been made. " << std::endl;
 
-  // strings for
+  // strings for Accounts
+  std::string AccountsTable = "CREATE TABLE IF NOT EXISTS ACCOUNTS(AccountID INT PRIMARY KEY NOT NULL, Email VARCHAR(35) NOT NULL, Password VARCHAR(20) NOT NULL);";
+  exit = sqlite3_exec(sqlptr, AccountsTable.c_str(), NULL, 0, &messaggeError);
+  if (exit != SQLITE_OK){
+    std::cerr << "Error making table Schedual" << std::endl;
+    sqlite3_free(messaggeError);
+  }// end if
+  else
+    std::cout << "Table Accounts has been made. " << std::endl;
 }// end table inits
 /*
 *   Intent: The this is to streamline the insertion of data from the
@@ -162,7 +182,11 @@ std::string Database::insertSchedualDataAux(){
   return date;
 } // end of std::string insertSchedualDataAux();
 
-
+/*
+* This function is included to facilitate calls to sql.
+* It came from this tutorial. https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
+*
+*/
 int Database::callback(void* data, int argc, char** argv, char** azColName){
     int i;
     fprintf(stderr, "%s: ", (const char*)data);
