@@ -3,6 +3,8 @@
 #include <sqlite3.h>
 #include <string>
 #include "Database.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 Database::Database(void){
   std::cout << "Making DB" << std::endl;
@@ -52,7 +54,7 @@ void Database::closeDB(){
 
 void Database::insertSchedualData(){
   std::string schedualQuery = "SELECT * FROM SCHEDUAL"; // What we are running in sql
-  std::string id = "empty";
+  int id = 0;
   //std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
   std::cout << "Enter ID: ";
   std::cin >> id;
@@ -60,7 +62,7 @@ void Database::insertSchedualData(){
   std::string date1 = insertSchedualDataAux();
   std::cout << "Enter End: " << std::endl;
   std::string date2 = insertSchedualDataAux();
-  std::string test = "INSERT INTO SCHEDUAL VALUES(" + id + ", " + "'" + date1 + "'" + ", " + "'" + date2 + "'" + ");";
+  std::string test = "INSERT INTO SCHEDUAL VALUES(" + std::to_string(id) + ", " + "'" + date1 + "'" + ", " + "'" + date2 + "'" + ");";
   std::cout << "Insett sql is: " << test << std::endl;
   int exit = 0;
   char* messaggeError;
@@ -75,14 +77,26 @@ void Database::insertSchedualData(){
 
 }// end insert method
 
-void Databse::insertAccountData(){
+void Database::insertAccountData(){
   std::string email;
   std::cout << "Enter email: ";
-  std::cin >> ins;
+  std::cin >> email;
   std::string passwd;
-  std::cout << "\n Enter Password: "
+  std::cout << "\n Enter Password: ";
   std::cin >> passwd;
   std::cout << std::endl;
+  int id = generateID(email, passwd);
+  std::string sql = "INSERT INTO ACCOUNTS VALUES(" + std::to_string(id) + ", '" + email + "'" + ", '" + passwd + "');";
+  std::cout << "Insert sql is: " << sql << std::endl;
+  int exit = 0;
+  char* messaggeError;
+  exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
+  if(exit != SQLITE_OK){
+    std::cerr << "Error with insert. " << std::endl;
+    sqlite3_free(messaggeError);
+  }// end if
+  else
+    std::cout << "Record has been inserted. " << std::endl;
 }// end insert Account Data
 
 
@@ -197,3 +211,16 @@ int Database::callback(void* data, int argc, char** argv, char** azColName){
     printf("\n");
     return 0;
 }
+
+/*
+*
+*/
+
+int Database::generateID(std::string n, std::string pw){
+  int id = 0;
+  /* initialize random seed: */
+  srand (time(NULL));
+  /* generate secret number between 1 and 1000: */
+  id = rand() % 1000 + 1;
+  return id;
+}// end generate ID

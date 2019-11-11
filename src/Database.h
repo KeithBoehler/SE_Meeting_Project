@@ -22,6 +22,7 @@ class Database{
     bool tableExist(std::string);
     void tablesInit(sqlite3* sqlptr);
     std::string insertSchedualDataAux();
+    int generateID(std::string, std::string);
 
     // from the sql tutorial
     static int callback(void* data, int argc, char** argv, char** azColName);
