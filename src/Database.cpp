@@ -213,7 +213,9 @@ int Database::callback(void* data, int argc, char** argv, char** azColName){
 }
 
 /*
-*
+* Precondition: Valid Username and Password as per requirments input.
+* Intent: To generate the unique ID for a user Account
+* Postcondition: A unique ID number to be genreated. 
 */
 
 int Database::generateID(std::string n, std::string pw){
