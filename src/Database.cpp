@@ -52,9 +52,8 @@ void Database::closeDB(){
 *
 */
 
-void Database::insertSchedualData(){
+void Database::insertSchedualData(int id){
   std::string schedualQuery = "SELECT * FROM SCHEDUAL"; // What we are running in sql
-  int id = 0;
   //std::string test = "INSERT INTO SCHEDUAL VALUES(0420493, '20191102T0201', '20191102T0301');";
   std::cout << "Enter ID: ";
   std::cin >> id;
@@ -77,7 +76,7 @@ void Database::insertSchedualData(){
 
 }// end insert method
 
-void Database::insertAccountData(){
+void Database::createAccountData(){
   std::string email;
   std::cout << "Enter email: ";
   std::cin >> email;
@@ -99,11 +98,32 @@ void Database::insertAccountData(){
     std::cout << "Record has been inserted. " << std::endl;
 }// end insert Account Data
 
-
+int Database::loginAccount(){
+  std::string email;
+  std::cout << "Enter email: ";
+  std::cin >> email;
+  std::string passwd;
+  std::cout << "\n Enter Password: ";
+  std::cin >> passwd;
+  std::cout << std::endl;
+  std::string sql = "SELECT AccountID FROM ACCOUNTS WHERE Email=" + email + "AND Password=" + passwd + ";";
+  std::cout << "Insert sql is: " << sql << std::endl;
+  int exit = 0;
+  char* messaggeError;
+  sqlite3_stmt *stmt;
+  exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messaggeError);
+  if (sqlite3_prepare_v2(DB, "SELECT 42", -1, &stmt, NULL) != SQLITE_OK)
+    std::cout << ":(" << std::endl;
+  else {
+        int rc = sqlite3_step(stmt);
+        return rc;
+  }// end else
+  sqlite3_finalize(stmt);
+}// end of loging accout
 
 void Database::getSchedualData(int id){
   std::cout << "Get TEST" << std::endl;
-  std::string sql = "SELECT * FROM SCHEDUAL;";
+  std::string sql = "SELECT * FROM SCHEDUAL WHERE AccountID=" + std::to_string(id) + ";";
   if (exit) {
     std::cerr << "Error open DB " << sqlite3_errmsg(DB) << std::endl;
     //return 1;
@@ -120,6 +140,26 @@ void Database::getSchedualData(int id){
     }
 
 }// end get data schedual
+
+void Database::getAccountData(int id){
+  std::cout << "Get TEST ACCOUNTS" << std::endl;
+  std::string sql = "SELECT * FROM ACCOUNTS;";
+  if (exit) {
+    std::cerr << "Error open DB " << sqlite3_errmsg(DB) << std::endl;
+    //return 1;
+  }
+  else
+    std::cout << "Opened Database Successfully!" << std::endl;
+
+  int rc = sqlite3_exec(DB, sql.c_str(), callback, (void*)sql.c_str(), NULL);
+
+  if (rc != SQLITE_OK)
+    std::cerr << "Error SELECT" << std::endl;
+  else {
+    std::cout << "Operation OK!" << std::endl;
+    }
+
+}// end get account data
 
 
 /*******************************************
@@ -215,7 +255,7 @@ int Database::callback(void* data, int argc, char** argv, char** azColName){
 /*
 * Precondition: Valid Username and Password as per requirments input.
 * Intent: To generate the unique ID for a user Account
-* Postcondition: A unique ID number to be genreated. 
+* Postcondition: A unique ID number to be genreated.
 */
 
 int Database::generateID(std::string n, std::string pw){

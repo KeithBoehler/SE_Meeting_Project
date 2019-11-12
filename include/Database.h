@@ -9,14 +9,17 @@ class Database{
     Database(); // defult constructor
     Database(std::string);
     void closeDB();
-    void insertSchedualData();
-    void insertAccountData();
+    void insertSchedualData(int);
+    void createAccountData();
+    int loginAccount();
     void getSchedualData(int);
+    void getAccountData(int);
 
   private:
     // Variables
     sqlite3* DB = NULL;
     std::string dbLocation;
+    int userID;
     // Tests
     bool dbExist(std::string, sqlite3*);
     bool tableExist(std::string);
