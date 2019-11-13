@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.10.1, 2019-11-13T17:31:02. -->
+<!-- Written by QtCreator 4.10.1, 2019-11-13T17:46:58. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -304,8 +304,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">When2Meet</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">When2Meet2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/keithnator3000/OneDrive - The University of Texas-Rio Grande Valley/Classes/STEM/Computer_Science/Software Engineering I - CSCI 3340/SE_Fall19/project/SE_Meeting_Project/gui/When2Meet.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/keithnator3000/OneDrive - The University of Texas-Rio Grande Valley/Classes/STEM/Computer_Science/Software Engineering I - CSCI 3340/SE_Fall19/project/SE_Meeting_Project/When2Meet.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
