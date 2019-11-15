@@ -1,4 +1,5 @@
 QT       += core gui
+LIBS += -L"/usr/local/opt/mysql-client/lib" -lsqlite3
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Account.cpp \
     gui/Account.cpp \
     gui/loginwindow.cpp \
     gui/main.cpp \
@@ -24,11 +24,7 @@ SOURCES += \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    src/Account.cpp \
     src/Database.cpp \
-    src/loginwindow.cpp \
-    src/main.cpp \
-    src/mainwindow.cpp \
     src/master.cpp
 
 HEADERS += \
@@ -36,19 +32,15 @@ HEADERS += \
     gui/Account.h \
     gui/loginwindow.h \
     gui/mainwindow.h \
-    include/Account.h \
-    include/Account_copy.h \
     include/Database.h \
-    include/loginwindow.h \
-    include/mainwindow.h \
     loginwindow.h \
     mainwindow.h
 
 FORMS += \
     gui/loginwindow.ui \
     gui/mainwindow.ui \
-    loginwindow.ui \
-    mainwindow.ui
+#    loginwindow.ui \
+ #   mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -61,4 +53,4 @@ SUBDIRS += \
 DISTFILES += \
     gui/When2Meet.pro.user \
     gui/When2Meet.pro.user.c0a9e0e \
-    src/Makefile
+ #   src/Makefile
