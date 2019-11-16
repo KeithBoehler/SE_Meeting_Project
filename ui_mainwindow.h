@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.1
+** Created by: Qt User Interface Compiler version 5.9.5
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,9 +10,12 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCalendarWidget>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QHeaderView>
 
 QT_BEGIN_NAMESPACE
 
@@ -24,10 +27,10 @@ public:
     void setupUi(QDialog *mainWindow)
     {
         if (mainWindow->objectName().isEmpty())
-            mainWindow->setObjectName(QString::fromUtf8("mainWindow"));
+            mainWindow->setObjectName(QStringLiteral("mainWindow"));
         mainWindow->resize(400, 300);
         calendarWidget = new QCalendarWidget(mainWindow);
-        calendarWidget->setObjectName(QString::fromUtf8("calendarWidget"));
+        calendarWidget->setObjectName(QStringLiteral("calendarWidget"));
         calendarWidget->setGeometry(QRect(-5, 0, 411, 301));
 
         retranslateUi(mainWindow);
@@ -37,7 +40,7 @@ public:
 
     void retranslateUi(QDialog *mainWindow)
     {
-        mainWindow->setWindowTitle(QCoreApplication::translate("mainWindow", "Dialog", nullptr));
+        mainWindow->setWindowTitle(QApplication::translate("mainWindow", "Dialog", Q_NULLPTR));
     } // retranslateUi
 
 };

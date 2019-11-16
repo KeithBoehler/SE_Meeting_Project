@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'loginwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.1
+** Created by: Qt User Interface Compiler version 5.9.5
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,8 +10,11 @@
 #define UI_LOGINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -42,30 +45,30 @@ public:
     void setupUi(QMainWindow *LoginWindow)
     {
         if (LoginWindow->objectName().isEmpty())
-            LoginWindow->setObjectName(QString::fromUtf8("LoginWindow"));
+            LoginWindow->setObjectName(QStringLiteral("LoginWindow"));
         LoginWindow->resize(630, 319);
         centralwidget = new QWidget(LoginWindow);
-        centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setObjectName(QStringLiteral("centralwidget"));
         widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setObjectName(QStringLiteral("widget"));
         widget->setGeometry(QRect(0, 0, 631, 321));
         layoutWidget = new QWidget(widget);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(50, 50, 531, 201));
         verticalLayout_2 = new QVBoxLayout(layoutWidget);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         labelUsername = new QLabel(layoutWidget);
-        labelUsername->setObjectName(QString::fromUtf8("labelUsername"));
+        labelUsername->setObjectName(QStringLiteral("labelUsername"));
 
         horizontalLayout->addWidget(labelUsername);
 
         lineEditUsername = new QLineEdit(layoutWidget);
-        lineEditUsername->setObjectName(QString::fromUtf8("lineEditUsername"));
+        lineEditUsername->setObjectName(QStringLiteral("lineEditUsername"));
 
         horizontalLayout->addWidget(lineEditUsername);
 
@@ -73,14 +76,14 @@ public:
         verticalLayout->addLayout(horizontalLayout);
 
         horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         labelPassword = new QLabel(layoutWidget);
-        labelPassword->setObjectName(QString::fromUtf8("labelPassword"));
+        labelPassword->setObjectName(QStringLiteral("labelPassword"));
 
         horizontalLayout_2->addWidget(labelPassword);
 
         lineEditPassword = new QLineEdit(layoutWidget);
-        lineEditPassword->setObjectName(QString::fromUtf8("lineEditPassword"));
+        lineEditPassword->setObjectName(QStringLiteral("lineEditPassword"));
 
         horizontalLayout_2->addWidget(lineEditPassword);
 
@@ -91,20 +94,20 @@ public:
         verticalLayout_2->addLayout(verticalLayout);
 
         pushButtonLogin = new QPushButton(layoutWidget);
-        pushButtonLogin->setObjectName(QString::fromUtf8("pushButtonLogin"));
+        pushButtonLogin->setObjectName(QStringLiteral("pushButtonLogin"));
 
         verticalLayout_2->addWidget(pushButtonLogin);
 
         pushButtonCreateAcc = new QPushButton(layoutWidget);
-        pushButtonCreateAcc->setObjectName(QString::fromUtf8("pushButtonCreateAcc"));
+        pushButtonCreateAcc->setObjectName(QStringLiteral("pushButtonCreateAcc"));
 
         verticalLayout_2->addWidget(pushButtonCreateAcc);
 
         label = new QLabel(widget);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(220, 9, 201, 41));
         QFont font;
-        font.setFamily(QString::fromUtf8("Avenir Next Ultra Light"));
+        font.setFamily(QStringLiteral("Avenir Next Ultra Light"));
         font.setPointSize(12);
         font.setBold(true);
         font.setWeight(75);
@@ -119,12 +122,12 @@ public:
 
     void retranslateUi(QMainWindow *LoginWindow)
     {
-        LoginWindow->setWindowTitle(QCoreApplication::translate("LoginWindow", "LoginWindow", nullptr));
-        labelUsername->setText(QCoreApplication::translate("LoginWindow", "Username", nullptr));
-        labelPassword->setText(QCoreApplication::translate("LoginWindow", "Password", nullptr));
-        pushButtonLogin->setText(QCoreApplication::translate("LoginWindow", "Login", nullptr));
-        pushButtonCreateAcc->setText(QCoreApplication::translate("LoginWindow", "Create Account", nullptr));
-        label->setText(QCoreApplication::translate("LoginWindow", "When2Meet", nullptr));
+        LoginWindow->setWindowTitle(QApplication::translate("LoginWindow", "LoginWindow", Q_NULLPTR));
+        labelUsername->setText(QApplication::translate("LoginWindow", "Username", Q_NULLPTR));
+        labelPassword->setText(QApplication::translate("LoginWindow", "Password", Q_NULLPTR));
+        pushButtonLogin->setText(QApplication::translate("LoginWindow", "Login", Q_NULLPTR));
+        pushButtonCreateAcc->setText(QApplication::translate("LoginWindow", "Create Account", Q_NULLPTR));
+        label->setText(QApplication::translate("LoginWindow", "When2Meet", Q_NULLPTR));
     } // retranslateUi
 
 };

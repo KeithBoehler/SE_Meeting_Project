@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <sqlite3.h>
 #include <string>
-#include "Database.h"
+#include "include/Database.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 

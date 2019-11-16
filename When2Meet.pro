@@ -1,5 +1,6 @@
 QT       += core gui
-LIBS += -L"/usr/local/opt/mysql-client/lib" -lsqlite3
+#INCLUDEPATH += "/usr/local/opt/mysql-client/lib" #-lsqlite3 # Mac OS
+INCLUDEPATH += -I"/home/keithnator3000/anaconda3/bin/sqlite3" -lsqlite3# Ubuntu
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,18 +15,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
     gui/Account.cpp \
     gui/loginwindow.cpp \
     gui/main.cpp \
     gui/mainwindow.cpp \
-    loginwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    src/Database.cpp \
-    src/master.cpp
+    gui/loginwindow.cpp \
+    src/Database.cpp
 
 HEADERS += \
     Account.h \
@@ -33,14 +31,10 @@ HEADERS += \
     gui/loginwindow.h \
     gui/mainwindow.h \
     include/Database.h \
-    loginwindow.h \
-    mainwindow.h
 
 FORMS += \
     gui/loginwindow.ui \
     gui/mainwindow.ui \
-#    loginwindow.ui \
- #   mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -53,4 +47,3 @@ SUBDIRS += \
 DISTFILES += \
     gui/When2Meet.pro.user \
     gui/When2Meet.pro.user.c0a9e0e \
- #   src/Makefile
