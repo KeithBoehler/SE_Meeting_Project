@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <sqlite3.h>
+
 #include <string>
 #include "include/Database.h"
 #include <stdlib.h>     /* srand, rand */
@@ -25,7 +26,7 @@ Database::Database(std::string s){
   int exit = 0;
   exit = sqlite3_open(dbLocation.c_str(), &DB); // wont take normal string
   if (exit){
-    std::cerr << "Could not Open example.db " << sqlite3_errmsg(DB) << std::endl;
+    std::cerr << "Could not Open custom db " << sqlite3_errmsg(DB) << std::endl;
   }
   else
     std::cout << "Databse is now open. " << std::endl;

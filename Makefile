@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_DISABLE_DEPRECATED_BEFORE=0x060000 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_DISABLE_DEPRECATED_BEFORE=0x060000 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I-L/home/keithnator3000/anaconda3/bin/sqlite3 -I-lsqlite3 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I-L/home/keithnator3000/anaconda3/bin/sqlite3 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,10 +37,10 @@ COMPRESS      = gzip -9f
 DISTNAME      = When2Meet1.0.0
 DISTDIR = /home/keithnator3000/SE_Meeting_Project/.tmp/When2Meet1.0.0
 LINK          = g++
-LFLAGS        =
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread
+LFLAGS        = 
+LIBS          = $(SUBLIBS) -lsqlite3 -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
 AR            = ar cqs
-RANLIB        =
+RANLIB        = 
 SED           = sed
 STRIP         = strip
 
@@ -54,8 +54,7 @@ SOURCES       = gui/Account.cpp \
 		gui/loginwindow.cpp \
 		gui/main.cpp \
 		gui/mainwindow.cpp \
-		src/Database.cpp \
-		moc_loginwindow.cpp \
+		src/Database.cpp moc_loginwindow.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = Account.o \
 		loginwindow.o \
@@ -66,6 +65,7 @@ OBJECTS       = Account.o \
 		moc_mainwindow.o
 DIST          = gui/When2Meet.pro.user \
 		gui/When2Meet.pro.user.c0a9e0e \
+		Makefile \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -148,17 +148,16 @@ DIST          = gui/When2Meet.pro.user \
 		gui/loginwindow.cpp \
 		gui/main.cpp \
 		gui/mainwindow.cpp \
-		gui/loginwindow.cpp \
 		src/Database.cpp
 QMAKE_TARGET  = When2Meet
-DESTDIR       =
+DESTDIR       = 
 TARGET        = When2Meet
 
 
 first: all
 ####### Build rules
 
-$(TARGET): ui_loginwindow.h ui_mainwindow.h $(OBJECTS)
+$(TARGET): ui_loginwindow.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: When2Meet.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -238,6 +237,7 @@ Makefile: When2Meet.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.co
 		When2Meet.pro \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5Sql.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
 	$(QMAKE) -o Makefile When2Meet.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
@@ -317,6 +317,7 @@ Makefile: When2Meet.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.co
 When2Meet.pro:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
+/usr/lib/x86_64-linux-gnu/libQt5Sql.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile When2Meet.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -334,17 +335,17 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents Account.h gui/Account.h gui/loginwindow.h gui/mainwindow.h include/Database.h $(DISTDIR)/
-	$(COPY_FILE) --parents gui/Account.cpp gui/loginwindow.cpp gui/main.cpp gui/mainwindow.cpp gui/loginwindow.cpp src/Database.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents gui/Account.cpp gui/loginwindow.cpp gui/main.cpp gui/mainwindow.cpp src/Database.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents gui/loginwindow.ui gui/mainwindow.ui $(DISTDIR)/
 
 
-clean: compiler_clean
+clean: compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
 
-distclean: clean
-	-$(DEL_FILE) $(TARGET)
+distclean: clean 
+	-$(DEL_FILE) $(TARGET) 
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
@@ -374,12 +375,12 @@ moc_loginwindow.cpp: gui/mainwindow.h \
 		gui/loginwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/keithnator3000/SE_Meeting_Project -I/home/keithnator3000/SE_Meeting_Project/-L/home/keithnator3000/anaconda3/bin/sqlite3 -I/home/keithnator3000/SE_Meeting_Project/-lsqlite3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gui/loginwindow.h -o moc_loginwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/keithnator3000/SE_Meeting_Project -I/home/keithnator3000/SE_Meeting_Project/-L/home/keithnator3000/anaconda3/bin/sqlite3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gui/loginwindow.h -o moc_loginwindow.cpp
 
 moc_mainwindow.cpp: gui/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/keithnator3000/SE_Meeting_Project -I/home/keithnator3000/SE_Meeting_Project/-L/home/keithnator3000/anaconda3/bin/sqlite3 -I/home/keithnator3000/SE_Meeting_Project/-lsqlite3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gui/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/keithnator3000/SE_Meeting_Project -I/home/keithnator3000/SE_Meeting_Project/-L/home/keithnator3000/anaconda3/bin/sqlite3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gui/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -400,11 +401,11 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
-Account.o: gui/Account.cpp
+Account.o: gui/Account.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Account.o gui/Account.cpp
 
 loginwindow.o: gui/loginwindow.cpp gui/loginwindow.h \
@@ -421,18 +422,13 @@ mainwindow.o: gui/mainwindow.cpp gui/mainwindow.h \
 		gui/ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o gui/mainwindow.cpp
 
-loginwindow.o: gui/loginwindow.cpp gui/loginwindow.h \
-		gui/mainwindow.h \
-		gui/ui_loginwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loginwindow.o gui/loginwindow.cpp
-
 Database.o: src/Database.cpp include/Database.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Database.o src/Database.cpp
 
-moc_loginwindow.o: moc_loginwindow.cpp
+moc_loginwindow.o: moc_loginwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_loginwindow.o moc_loginwindow.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp
+moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 ####### Install
@@ -443,7 +439,7 @@ install_target: first FORCE
 
 uninstall_target: FORCE
 	-$(DEL_FILE) $(INSTALL_ROOT)/opt/When2Meet/bin/$(QMAKE_TARGET)
-	-$(DEL_DIR) $(INSTALL_ROOT)/opt/When2Meet/bin/
+	-$(DEL_DIR) $(INSTALL_ROOT)/opt/When2Meet/bin/ 
 
 
 install: install_target  FORCE
@@ -451,3 +447,4 @@ install: install_target  FORCE
 uninstall: uninstall_target  FORCE
 
 FORCE:
+

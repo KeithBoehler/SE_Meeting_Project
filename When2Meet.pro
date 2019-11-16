@@ -1,6 +1,7 @@
-QT       += core gui
+QT       += core gui sql
 #INCLUDEPATH += "/usr/local/opt/mysql-client/lib" #-lsqlite3 # Mac OS
-INCLUDEPATH += -I"/home/keithnator3000/anaconda3/bin/sqlite3" -lsqlite3# Ubuntu
+INCLUDEPATH += -L"/home/keithnator3000/anaconda3/bin/sqlite3" #-lsqlite3# Ubuntu
+LIBS += -lsqlite3
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +23,6 @@ SOURCES += \
     gui/loginwindow.cpp \
     gui/main.cpp \
     gui/mainwindow.cpp \
-    gui/loginwindow.cpp \
     src/Database.cpp
 
 HEADERS += \
@@ -47,3 +47,4 @@ SUBDIRS += \
 DISTFILES += \
     gui/When2Meet.pro.user \
     gui/When2Meet.pro.user.c0a9e0e \
+    Makefile
